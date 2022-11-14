@@ -28,9 +28,9 @@ public class LadokController {
                                          @RequestParam String betyg, @RequestParam String exDatum, @RequestParam String status) {
 
         //Convert String examinationsDatum to LocalDate
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        String date = exDatum;
-        LocalDate examinationsDatum = LocalDate.parse(date, formatter);
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+       String date = exDatum;
+       LocalDate examinationsDatum = LocalDate.parse(date, formatter);
 
         //Calls reg_Result method from implementation class to each save result to DB, get LadokResult object back
        LadokResult newResult = ladokServiceImplementation.reg_Result(pnr, kurskod, modul, betyg, examinationsDatum, status);
