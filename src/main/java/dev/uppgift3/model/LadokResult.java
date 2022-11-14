@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 //Entity class for Ladok webb service. Class defines the object => determines what data to be stored in DB.
 
@@ -20,16 +21,16 @@ public class LadokResult {
     private String pnr;
     private String kurskod;
     private String modul;
-    private LocalDate datum;
+    private LocalDate examinationsDatum;
     private String betyg;
     private String status;
 
     //Constructor
-    public LadokResult(String pnr, String kurskod, String modul, LocalDate datum, String betyg, String status) {
+    public LadokResult(String pnr, String kurskod, String modul, LocalDate examinationsDatum, String betyg, String status) {
         this.pnr = pnr;
         this.kurskod = kurskod;
         this.modul = modul;
-        this.datum = datum;
+        this.examinationsDatum = examinationsDatum;
         this.betyg = betyg;
         this.status = status;
     }
@@ -74,11 +75,11 @@ public class LadokResult {
     }
 
     public LocalDate getDatum() {
-        return datum;
+        return examinationsDatum;
     }
 
     public void setDatum(LocalDate datum) {
-        this.datum = datum;
+        this.examinationsDatum = datum;
     }
 
     public String getBetyg() {

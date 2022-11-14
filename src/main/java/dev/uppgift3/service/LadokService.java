@@ -3,6 +3,8 @@ package dev.uppgift3.service;
 import dev.uppgift3.model.LadokResult;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -16,5 +18,5 @@ public interface LadokService {
     * för respektive student
     *e */
 
-    public LadokResult reg_Result(String pnr, String kurskod, String modul, String betyg);
+    public LadokResult reg_Result(String pnr, String kurskod, String modul, String betyg, LocalDate examinationsDatum, String status);
 }
