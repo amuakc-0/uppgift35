@@ -12,6 +12,7 @@ public class ItsServiceImplementation implements ItsService {
     @Autowired
     ItsRepository itsRepository;
 
+    //Method for seraching for a pnr in DB based on student-id (studentAnvandare)
     @Override
     public ItsPnr get_Persnummer(String studentAnvandare) {
         return itsRepository.get_Persnummer(studentAnvandare);

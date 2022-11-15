@@ -15,7 +15,7 @@ public class LadokResult {
 
     //Primary key for Ladok entity
     private @Id
-    @GeneratedValue int ladokid;  //use pnr as PK is perhaps better? Not sure if a Ladok account can exist without a pnr
+    @GeneratedValue int ladokid;  //used instead of pnr since pnr occurs several times
 
     //Variables (not translated for clarity)
     private String pnr;

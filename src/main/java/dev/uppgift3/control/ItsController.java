@@ -18,7 +18,7 @@ public class ItsController {
     @RequestMapping(value="/find", method = RequestMethod.GET)
     public @ResponseBody String get_Persnummer(@RequestParam("studentAnvandare") String studentAnvandare) {
         ItsPnr pnr = itsServiceImplementation.get_Persnummer(studentAnvandare);
-        return studentAnvandare +" has pnr: " + pnr.getPnr();
+        return pnr.getPnr();
     }
 
 }

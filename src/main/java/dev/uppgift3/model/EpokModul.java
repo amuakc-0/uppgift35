@@ -8,12 +8,11 @@ import java.util.List;
 public class EpokModul {
 
     private @Id
-    @GeneratedValue int id;
+    @GeneratedValue int modulId; //PK
 
-    private String kursKod;
+    private String kursKod; //FK
 
-    private String modules; //TODO: Map modules https://thorben-janssen.com/ultimate-guide-association-mappings-jpa-hibernate/
-
+    private String modulNamn;
 
 }
 
