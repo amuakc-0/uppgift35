@@ -19,41 +19,16 @@ function Navigation() {
          <div className="container">
 
           <NavLink className="navbar-brand" to="/">
-            Bothniabladet
+            Web services
           </NavLink>
           <div>
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <NavLink className="nav-link" to="/">
-                  Hem
+                  Registrera studieresultat
                   <span className="sr-only">(current)</span>
                 </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/LaddaUpp">
-                  Ladda upp
-                </NavLink>
-                </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/galleri">
-                  Galleri
-                </NavLink>
-              </li>
-                <li className="nav-item">
-                <NavLink className="nav-link" to="/Search">
-                  Sök
-                </NavLink>
 
-              </li>
-                <li className="nav-item">
-                <NavLink className="nav-link" to="/kontakt">
-                  Kontakt
-                </NavLink>
-              </li>
-                <li className="nav-item">
-                <NavLink className="nav-link" to="/loggain">
-                  Logga in
-                </NavLink>
 
               </li>
 
@@ -63,6 +38,7 @@ function Navigation() {
         </div>
       </nav>
     </div>
+
   );
 }
 
