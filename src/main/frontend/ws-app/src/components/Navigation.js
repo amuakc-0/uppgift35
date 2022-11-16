@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-//import './Navigation.css'
+import './/Navigation.css'
 
 
 // I Navigation och främst tillsammans med index.js-filerna styrs navigeringen i webbappen,
@@ -19,7 +19,7 @@ function Navigation() {
          <div className="container">
 
           <NavLink className="navbar-brand" to="/">
-            Web Services
+            Bothniabladet
           </NavLink>
           <div>
             <ul className="navbar-nav ml-auto">
@@ -28,7 +28,32 @@ function Navigation() {
                   Hem
                   <span className="sr-only">(current)</span>
                 </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/LaddaUpp">
+                  Ladda upp
+                </NavLink>
+                </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/galleri">
+                  Galleri
+                </NavLink>
+              </li>
+                <li className="nav-item">
+                <NavLink className="nav-link" to="/Search">
+                  Sök
+                </NavLink>
 
+              </li>
+                <li className="nav-item">
+                <NavLink className="nav-link" to="/kontakt">
+                  Kontakt
+                </NavLink>
+              </li>
+                <li className="nav-item">
+                <NavLink className="nav-link" to="/loggain">
+                  Logga in
+                </NavLink>
 
               </li>
 

@@ -1,0 +1,28 @@
+
+
+.background {
+    min-height: 250px;
+    background-image: url(https://testaccount0988.blob.core.windows.net/images/header.jpg);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-items: center;
+    justify-content: center;
+}
+
+.description {
+    font-size: medium;
+    font-family: "Georgia", serif;
+    font-weight: bold;
+    color: inherit;
+    text-align: left;
+    text-decoration: inherit;
+    outline: none;
+    margin-right: 300px;
+    margin-left: 30px;
+    margin-bottom: 100px;
+    margin-top: -20px;
+
+
+}

@@ -1,0 +1,12 @@
+.nav-link {
+    display: flex;
+    color: inherit;
+    text-transform: uppercase;
+}
+
+.navbar-brand {
+    font-family: "Georgia", serif;
+    font-size: xx-large;
+    font-weight: lighter;
+    margin-left: 400px;
+}
