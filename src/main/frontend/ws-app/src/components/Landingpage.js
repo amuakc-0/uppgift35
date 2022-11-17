@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import './/Landingpage.css';
 import { Button, Grid } from "@mui/material";
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import axios from "axios";
 
 
 function Landingpage() {
@@ -43,7 +44,17 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
+    const [isLoaded,setIsLoaded] = useState(false);
+  const [rowData,setRowData] = useState([]);
+  useEffect(() => {
+    const response = axios.get('http://localhost:8080/its/find?studentAnvandare=test-123')
+         response.then((response) => {
+        setIsLoaded(true);
+        console.log(response.data);
+        setRowData(response.data);
+    });}, []);
+
+/*const rows = [
   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
@@ -53,7 +64,9 @@ const rows = [
   { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+];*/
+
+
 
   return (
 
@@ -81,15 +94,11 @@ Här kan man lägga rullistor tänker jag
           <div class="description">
 
 
-            Yay frontend up and running
-
-
-//Här är själva datagriden som hämtar  objekten
 
 
                 <Box sx={{ height: 400, width: '350%' }}>
                   <DataGrid
-                    rows={rows}
+                    rows={rowData}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}

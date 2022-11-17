@@ -2,8 +2,9 @@ package dev.uppgift3;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication()
 public class Uppgift3Application {
 
     public static void main(String[] args) {
@@ -11,3 +12,5 @@ public class Uppgift3Application {
     }
 
 }
+
+
