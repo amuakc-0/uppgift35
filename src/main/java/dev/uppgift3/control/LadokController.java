@@ -2,6 +2,7 @@ package dev.uppgift3.control;
 
 import dev.uppgift3.implementation.LadokServiceImplementation;
 import dev.uppgift3.model.LadokResult;
+import dev.uppgift3.repository.LadokRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
@@ -15,10 +16,14 @@ import java.util.*;
 public class LadokController {
     @Autowired
     private LadokServiceImplementation ladokServiceImplementation;
+    @Autowired
+    private LadokRepository ladokRepository;
 
-    //TODO: Place post, put, get, delete mapping here
+    //TODO: Metod för att uppdatera resultat via frontend behövs. Alltså, när man klickar på ett fält i datagriden -> ändrar -> klickar på "överför",
+    //      så ska den metoden kallas för att updatera resultat i databasen
 
 
+    //End point for reg_Resultat (used for adding new results)
     @RequestMapping("/reg_Resultat")
     public List<LadokResult> reg_Resultat(@RequestParam(value = "listOfPnr[]") String[] listOfPnr, @RequestParam(value = "listOfKurskod[]") String[] listOfKurskod,
                                           @RequestParam(value = "listOfModul[]") String[] listOfModul, @RequestParam(value = "listOfBetyg[]") String[] listOfBetyg,
@@ -56,21 +61,10 @@ public class LadokController {
         return null;
     }
 
-    //End point for reg_Resultat. Posts data needed for creating a new LadokResult object.
-   /* @PostMapping("/reg_Resultat")
-    public LadokResult regResultat(@RequestParam String pnr, @RequestParam String kurskod, @RequestParam String modul,
-                                         @RequestParam String betyg, @RequestParam String exDatum, @RequestParam String status) {
-
-        //Convert String examinationsDatum to LocalDate
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-       String date = exDatum;
-       LocalDate examinationsDatum = LocalDate.parse(date, formatter);
-
-        //Calls reg_Result method from implementation class to each save result to DB, get LadokResult object back
-       LadokResult newResult = ladokServiceImplementation.reg_Result(pnr, kurskod, modul, betyg, examinationsDatum, status);
-
-
-        return newResult;
-
-    } */
+    //End point for requesting all results based on course code
+    @RequestMapping(value="/find_Resultat", method = RequestMethod.GET)
+        public @ResponseBody List<LadokResult> getResultsCourse(@RequestParam("courseCode") String courseCode) {
+        List<LadokResult> listForCourse = ladokRepository.getResultsCourse(courseCode);
+        return listForCourse;
+    }
 }
