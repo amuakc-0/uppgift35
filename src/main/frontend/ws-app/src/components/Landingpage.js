@@ -7,6 +7,7 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import axios from "axios";
 
 
+
 function Landingpage() {
 
 
@@ -82,12 +83,49 @@ const columns: GridColDef[] = [
 ];*/
 
 
+// Rullistan
+    const [category, setCategory] = useState();
+
 
   return (
 
 
     <section className="header">
         <div className="background">
+
+         <div className="drop-downs">
+    <div className="desc">
+        <p> Kurskod
+
+              <select>
+                    <option value="Kurskod" onClick={(e => setCategory(null))}>-</option>
+                    <option value="sport" onClick={(e => setCategory("sport"))}>Sport</option>
+                    <option value="senasteNytt" onClick={(e => setCategory("senasteNytt"))}>Senaste Nytt</option>
+                    <option value="kungafamiljen" onClick={(e => setCategory("kungafamiljen"))}>Kungafamiljen</option>
+                    <option value="kultur" onClick={(e => setCategory("kultur"))}>Kultur</option>
+             </select>
+
+Modul i Canvas
+            <select>
+                    <option value="CanvasModul" onClick={(e => setCategory(null))}>-</option>
+                    <option value="sport" onClick={(e => setCategory("sport"))}>Sport</option>
+                    <option value="senasteNytt" onClick={(e => setCategory("senasteNytt"))}>Senaste Nytt</option>
+                    <option value="kungafamiljen" onClick={(e => setCategory("kungafamiljen"))}>Kungafamiljen</option>
+                    <option value="kultur" onClick={(e => setCategory("kultur"))}>Kultur</option>
+            </select>
+
+
+Modul i Ladok
+            <select>
+                    <option value="LadokModul" onClick={(e => setCategory(null))}>-</option>
+                    <option value="sport" onClick={(e => setCategory("sport"))}>Sport</option>
+                    <option value="senasteNytt" onClick={(e => setCategory("senasteNytt"))}>Senaste Nytt</option>
+                    <option value="kungafamiljen" onClick={(e => setCategory("kungafamiljen"))}>Kungafamiljen</option>
+                    <option value="kultur" onClick={(e => setCategory("kultur"))}>Kultur</option>
+            </select>
+</p>
+</div>
+</div>
 
 
 Här kan man lägga rullistor tänker jag

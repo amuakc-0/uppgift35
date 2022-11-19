@@ -1,8 +1,7 @@
 
 
 .background {
-    min-height: 250px;
-    background-color: #FBB26A;
+    min-height: 50px;
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -23,6 +22,30 @@
     margin-left: 30px;
     margin-bottom: 100px;
     margin-top: -20px;
+}
 
+.drop-downs {
+    font-size: medium;
+    font-family: "Georgia", serif;
+    font-weight: bold;
+    color: inherit;
+    text-align: -webkit-center;
+    text-decoration: inherit;
+    outline: none;
+    margin-top: 20px;
+    padding: 20px;
+}
 
+.desc1 {
+    display: grid;
+    grid-row-gap: 24px;
+    font-size: medium;
+    font-family: "Georgia", serif;
+    font-weight: bold;
+    color: inherit;
+    text-align: -webkit-center;
+    text-decoration: inherit;
+    outline: none;
+    margin-top: 20px;
+    padding: 20px;
 }
