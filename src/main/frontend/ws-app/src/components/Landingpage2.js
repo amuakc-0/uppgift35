@@ -9,11 +9,11 @@ import Select from "react-select";
 
 
 
-function Landingpage() {
+function Landingpage2() {
 
 
 //Hårdkodade objekt som används i datagriden
-
+/*
 const columns: GridColDef[] = [
   {
       field: 'ladokid',
@@ -71,9 +71,40 @@ const columns: GridColDef[] = [
         console.log(response.data);
         setRowData(response.data);
     });}, []);
+*/
 
+const columns: GridColDef[] = [
+  { field: 'id', headerName: 'ID', width: 90 },
+  {
+    field: 'firstName',
+    headerName: 'First name',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'lastName',
+    headerName: 'Last name',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'age',
+    headerName: 'Age',
+    type: 'number',
+    width: 110,
+    editable: true,
+  },
+  {
+    field: 'fullName',
+    headerName: 'Full name',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 160,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+  },
+];
 
-/*
 const rows = [
   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
@@ -85,7 +116,7 @@ const rows = [
   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
-*/
+
 
 
 // Rullistan tidigare
@@ -109,7 +140,11 @@ const rows = [
       function handleSelect(data) {
         setCourseCode(data);
 
-        //tänker att här borde man kunna göra nåt med resultatet av valet i rullistan?
+
+
+
+
+
 
       }
 
@@ -133,7 +168,17 @@ const rows = [
                   />
 </div>
 
-
+            <Box sx={{ height: 400, width: '100%' }}>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                checkboxSelection
+                disableSelectionOnClick
+                experimentalFeatures={{ newEditingApi: true }}
+              />
+            </Box>
 
 
 
@@ -179,27 +224,6 @@ Modul i Ladok
 
 
 
-
-               <Box sx={{ height: 400, width: '500%' }}>
-                  <DataGrid
-                    rows={rowData}
-                    getRowId={(row: any) =>  row.ladokid + row.pnr}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                    disableSelectionOnClick
-                    experimentalFeatures={{ newEditingApi: true }}
-                  />
-                </Box>
-
-
-
-
-
-
-
-
             <div className="button">
 
 
@@ -223,4 +247,4 @@ Modul i Ladok
   );
 }
 
-export default Landingpage;
+export default Landingpage2;
