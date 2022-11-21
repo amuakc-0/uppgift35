@@ -12,7 +12,7 @@ import Select from "react-select";
 function Landingpage() {
 
 
-//Hårdkodade objekt som används i datagriden
+/* ATTRIBUTES OF DATAGRID */
 
 const columns: GridColDef[] = [
   {
@@ -66,31 +66,44 @@ const columns: GridColDef[] = [
     const [rowData,setRowData] = useState([]);
 
 
+/*  RULLISTOR */
 
-/*
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
-*/
-
-
-// Rullistan tidigare
-    const [category, setCategory] = useState();
-
-//ny rullista
+// Kurskod
     const [courseCode, setCourseCode] = useState();
-    const [course, setCourse] = useState([]);
+
+// Modul i Canvas
+    const [canvasModule, setCanvasModule] = useState();
+
+// Ladokmodul
+    const [ladokModule, setLadokModule] = useState();
+
+  //  const [course, setCourse] = useState([]);
 
 
-      // Function triggered on selection
+
+/* FUNCTIONS TRIGGERED ON SELECTION OF DROP-DOWN MENUES */
+
+// Kurskod
+      function handleSelect(courseCode) {
+              console.log(courseCode.value);
+              const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+courseCode.value)
+              response.then((response) => {
+                  setIsLoaded(true);
+                  console.log(response.data);
+                  setRowData(response.data);
+              }); }
+
+// Modul i Canvas
+      function handleSelect(courseCode) {
+              console.log(courseCode.value);
+              const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+courseCode.value)
+              response.then((response) => {
+                  setIsLoaded(true);
+                  console.log(response.data);
+                  setRowData(response.data);
+              }); }
+
+// Modul i Ladok
       function handleSelect(courseCode) {
               console.log(courseCode.value);
               const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+courseCode.value)
@@ -102,8 +115,20 @@ const rows = [
 
 
       }
-// Array of all options
-    const [optionList, setOptionList] = useState([{ value: "D0032N", label: "D0032N" }]);
+
+
+/* ARRAYS OF OPTIONS */
+
+//Kurskod options
+    const [optionList1, setOptionList1] = useState([{ value: "D0032N", label: "D0032N" }]);
+
+// Canvas options
+    const [optionList2, setOptionList2] = useState([{ value: "D0032N", label: "D0032N" }]);
+
+// Ladok options
+    const [optionList3, setOptionList3] = useState([{ value: "D0032N", label: "D0032N" }]);
+
+
 
 //Börjat fundera på hur man kan ladda listan med kurskoder från DB, inte fått till det ännu
 /*   useEffect(() => {
@@ -114,17 +139,14 @@ const rows = [
         })});
 */
   return (
-
-
     <section className="header">
         <div className="background">
-
          <div className="drop-downs">
     <div className="desc">
         <p> Kurskod
 <div className="dropdown-container">
             <Select
-            options={optionList}
+            options={optionList1}
                       placeholder="Välj kurskod i listan"
                       value={courseCode}
                       onChange={handleSelect}
@@ -133,37 +155,32 @@ const rows = [
 </div>
 
 
-
-
-
 Modul i Canvas
-            <select>
-
-                    <option value="CanvasModul" onClick={(e => setCategory(null))}>-</option>
-                    <option value="sport" onClick={(e => setCategory("sport"))}>Sport</option>
-                    <option value="senasteNytt" onClick={(e => setCategory("senasteNytt"))}>Senaste Nytt</option>
-                    <option value="kungafamiljen" onClick={(e => setCategory("kungafamiljen"))}>Kungafamiljen</option>
-                    <option value="kultur" onClick={(e => setCategory("kultur"))}>Kultur</option>
-            </select>
+<div className="dropdown-container">
+            <Select
+            options={optionList2}
+                      placeholder="Välj Canvasmodul i listan"
+                      value={canvasModule}
+                      onChange={handleSelect}
+                      isSearchable={true}
+                  />
+</div>
 
 
 Modul i Ladok
-            <select>
-                    <option value="LadokModul" onClick={(e => setCategory(null))}>-</option>
-                    <option value="sport" onClick={(e => setCategory("sport"))}>Sport</option>
-                    <option value="senasteNytt" onClick={(e => setCategory("senasteNytt"))}>Senaste Nytt</option>
-                    <option value="kungafamiljen" onClick={(e => setCategory("kungafamiljen"))}>Kungafamiljen</option>
-                    <option value="kultur" onClick={(e => setCategory("kultur"))}>Kultur</option>
-            </select>
+<div className="dropdown-container">
+            <Select
+            options={optionList3}
+                      placeholder="Välj Ladokmodul i listan"
+                      value={ladokModule}
+                      onChange={handleSelect}
+                      isSearchable={true}
+                  />
+</div>
 </p>
 </div>
 </div>
-
-
-
-        </div>
-
-
+ </div>
 
       <div className="container">
 
@@ -175,9 +192,6 @@ Modul i Ladok
 
 
           <div className="description">
-
-
-
 
                <Box sx={{ height: 400, width: '500%' }}>
                   <DataGrid
@@ -193,32 +207,17 @@ Modul i Ladok
                 </Box>
 
 
-
-
-
-
-
-
             <div className="button">
 
 
           </div>
-
             <div>
-
-
     </div>
-
-
 </div>
-
-
         </div>
         </div>
       </div>
       </section>
-
-
   );
 }
 
