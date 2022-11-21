@@ -54,7 +54,6 @@ public class LadokController {
 
                 LadokResult newResult = ladokServiceImplementation.reg_Result(listOfPnr[i], listOfKurskod[i], listOfModul[i], betygAdd[i], examinationsDatum,statusAdd[i]);
 
-                //TODO: save person as new result
             }
 
 

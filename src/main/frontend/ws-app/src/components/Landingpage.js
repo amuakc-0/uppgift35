@@ -64,13 +64,7 @@ const columns: GridColDef[] = [
 
     const [isLoaded,setIsLoaded] = useState(false);
     const [rowData,setRowData] = useState([]);
-    useEffect(() => {
-        const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode=DK103')
-         response.then((response) => {
-        setIsLoaded(true);
-        console.log(response.data);
-        setRowData(response.data);
-    });}, []);
+
 
 
 /*
@@ -93,27 +87,32 @@ const rows = [
 
 //ny rullista
     const [courseCode, setCourseCode] = useState();
-
-      // Array of all options
-      const optionList = [
-        { value: "null", label: "-" },
-        { value: "D0032N", label: "D0032N" },
-        { value: "D0019N", label: "D0019N" },
-        { value: "D0020N", label: "D0020N" },
-        { value: "D0025E", label: "D0025E" },
-        { value: "D0024E", label: "D0024E" }
-      ];
+    const [course, setCourse] = useState([]);
 
 
       // Function triggered on selection
-      function handleSelect(data) {
-        setCourseCode(data);
+      function handleSelect(courseCode) {
+              console.log(courseCode.value);
+              const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+courseCode.value)
+              response.then((response) => {
+                  setIsLoaded(true);
+                  console.log(response.data);
+                  setRowData(response.data);
+              });
 
-        //tänker att här borde man kunna göra nåt med resultatet av valet i rullistan?
 
       }
+// Array of all options
+    const [optionList, setOptionList] = useState([{ value: "D0032N", label: "D0032N" }]);
 
-
+//Börjat fundera på hur man kan ladda listan med kurskoder från DB, inte fått till det ännu
+/*   useEffect(() => {
+        const resp = axios.get('http://localhost:8080/epok/find')
+        resp.then((resp) => {
+        console.log(resp.data);
+        setOptionList({ value: resp.courseCode, label: resp.courseName });
+        })});
+*/
   return (
 
 
