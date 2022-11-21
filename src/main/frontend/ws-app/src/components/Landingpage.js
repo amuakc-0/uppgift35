@@ -85,13 +85,30 @@ const columns: GridColDef[] = [
 
 // Kurskod
       function handleSelect(courseCode) {
+
+/*  Denna funkar att ju köra utanför funktionen, laddar in det som finns i lokala mysql..
+    Inte fått till att den ska ladda in resultat först när man gjort ett val i listan
+
+          const [isLoaded,setIsLoaded] = useState(false);
+          const [rowData,setRowData] = useState([]);
+          useEffect(() => {
+              const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode=D0025E')
+              response.then((response) => {
+              setIsLoaded(true);
+              console.log(response.data);
+              setRowData(response.data);
+          });}, []);
+}
+*/
+
               console.log(courseCode.value);
-              const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+courseCode.value)
+              const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode=D0025E')
               response.then((response) => {
                   setIsLoaded(true);
                   console.log(response.data);
                   setRowData(response.data);
               }); }
+
 
 // Modul i Canvas
       function handleSelect(courseCode) {
@@ -129,7 +146,6 @@ const columns: GridColDef[] = [
     const [optionList3, setOptionList3] = useState([{ value: "D0032N", label: "D0032N" }]);
 
 
-
 //Börjat fundera på hur man kan ladda listan med kurskoder från DB, inte fått till det ännu
 /*   useEffect(() => {
         const resp = axios.get('http://localhost:8080/epok/find')
@@ -138,12 +154,13 @@ const columns: GridColDef[] = [
         setOptionList({ value: resp.courseCode, label: resp.courseName });
         })});
 */
+
   return (
     <section className="header">
         <div className="background">
          <div className="drop-downs">
     <div className="desc">
-        <p> Kurskod
+        Kurskod
 <div className="dropdown-container">
             <Select
             options={optionList1}
@@ -152,6 +169,8 @@ const columns: GridColDef[] = [
                       onChange={handleSelect}
                       isSearchable={true}
                   />
+
+
 </div>
 
 
@@ -177,7 +196,7 @@ Modul i Ladok
                       isSearchable={true}
                   />
 </div>
-</p>
+
 </div>
 </div>
  </div>
