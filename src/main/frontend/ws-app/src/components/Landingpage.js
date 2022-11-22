@@ -63,7 +63,10 @@ const columns: GridColDef[] = [
 
 
     const [isLoaded,setIsLoaded] = useState(false);
-    const [rowData,setRowData] = useState([]);
+    const [rowData, setRowData] = useState([]);
+    const updatedRows = [];
+
+
 
 
 /*  RULLISTOR */
@@ -160,15 +163,18 @@ const columns: GridColDef[] = [
 
     }
 
-//Börjat fundera på hur man kan ladda listan med kurskoder från DB, inte fått till det ännu
-/*useEffect(() => {
-        const resp = axios.get('http://localhost:8080/epok/find')
-        //[{value: "xx", label: "xx"}]
-        resp.then((resp) => {
-        console.log(resp.data);
-        setOptionList1({ value: resp.courseCode, label: resp.courseName });
-        console.log(optionList1);
-        })});*/
+//FOR EDITING ROWS AND UPDATING DB WITH EDITS
+    const processRowUpdate = (newRow: any) => {
+        const updatedRow = { ...newRow, isNew: false };
+        console.log(updatedRow);
+        updatedRows.push(updatedRow);
+        console.log(updatedRows)
+        return updatedRow;
+    };
+
+    function postResults() {
+        //TODO: Lägg till Post/Update som skickar updatedRows till DB onClick?
+    }
 
 
   return (
@@ -240,6 +246,7 @@ Modul i Ladok
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{ newEditingApi: true }}
+                    processRowUpdate={processRowUpdate}
                   />
                 </Box>
 
