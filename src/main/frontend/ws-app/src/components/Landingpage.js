@@ -84,7 +84,7 @@ const columns: GridColDef[] = [
 /* FUNCTIONS TRIGGERED ON SELECTION OF DROP-DOWN MENUES */
 
 // Kurskod
-      function handleSelect(courseCode) {
+     // function handleSelect(courseCode) {
 
 /*  Denna funkar att ju köra utanför funktionen, laddar in det som finns i lokala mysql..
     Inte fått till att den ska ladda in resultat först när man gjort ett val i listan
@@ -99,7 +99,7 @@ const columns: GridColDef[] = [
               setRowData(response.data);
           });}, []);
 }
-*/
+
 
               console.log(courseCode.value);
               const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode=D0025E')
@@ -107,7 +107,7 @@ const columns: GridColDef[] = [
                   setIsLoaded(true);
                   console.log(response.data);
                   setRowData(response.data);
-              }); }
+              }); }*/
 
 
 // Modul i Canvas
@@ -137,7 +137,9 @@ const columns: GridColDef[] = [
 /* ARRAYS OF OPTIONS */
 
 //Kurskod options
-    const [optionList1, setOptionList1] = useState([{ value: "D0032N", label: "D0032N" }]);
+    const [optionList1, setOptionList1] = useState([
+
+    ]); //{ value: "D0032N", label: "D0032N" }, {value: "DK3003", label: "DK3003"}
 
 // Canvas options
     const [optionList2, setOptionList2] = useState([{ value: "D0032N", label: "D0032N" }]);
@@ -145,21 +147,36 @@ const columns: GridColDef[] = [
 // Ladok options
     const [optionList3, setOptionList3] = useState([{ value: "D0032N", label: "D0032N" }]);
 
+//Test
+    function testButton() {
+        const response = axios.get('http://localhost:8080/epok/find')
+        response.then((response) => {
+            setIsLoaded(true);
+            console.log(response.data);
+            setOptionList1(response.data);
+            console.log(response.data);
+        });
+
+
+    }
 
 //Börjat fundera på hur man kan ladda listan med kurskoder från DB, inte fått till det ännu
-/*   useEffect(() => {
+/*useEffect(() => {
         const resp = axios.get('http://localhost:8080/epok/find')
+        //[{value: "xx", label: "xx"}]
         resp.then((resp) => {
         console.log(resp.data);
-        setOptionList({ value: resp.courseCode, label: resp.courseName });
-        })});
-*/
+        setOptionList1({ value: resp.courseCode, label: resp.courseName });
+        console.log(optionList1);
+        })});*/
+
 
   return (
     <section className="header">
         <div className="background">
          <div className="drop-downs">
     <div className="desc">
+
         Kurskod
 <div className="dropdown-container">
             <Select
@@ -167,6 +184,7 @@ const columns: GridColDef[] = [
                       placeholder="Välj kurskod i listan"
                       value={courseCode}
                       onChange={handleSelect}
+                      onMenuOpen={testButton}
                       isSearchable={true}
                   />
 
@@ -226,11 +244,12 @@ Modul i Ladok
                 </Box>
 
 
-            <div className="button">
+            <div>
 
 
           </div>
-            <div>
+            <div className="button">
+                <button onClick={testButton}>Testa</button>
     </div>
 </div>
         </div>
