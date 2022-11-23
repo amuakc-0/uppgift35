@@ -26,8 +26,19 @@ public class LadokController {
     //End point for reg_Resultat (used for adding new results)
     @RequestMapping("/reg_Resultat")
     public List<String[]> reg_Resultat(@RequestParam(value = "listOfResults[]") String[] listOfResults) {
-        List<String[]> arrList = new ArrayList<String[]>();
-        arrList.add(listOfResults);
+
+
+
+
+
+        for (int i = 0; i < listOfResults.length; i++) {
+            List<String> elephantList = Arrays.asList(listOfResults[i].split(":"));
+            System.out.println(elephantList.get(1));
+            //TODO: splitta igen för att få värdena på varsin plats i en array för att kunna skicka till metoden för att skapa ett nytt resultat
+            //TODO: alltså... LadokResult newResult = ladokServiceImplementation.reg_Result(array[0], array[1] osv...)
+            }
+
+
 
         List<String> updateResult = new ArrayList<>();
         //TODO: loopa genom listOfResults på något sätt för att kunna lägga till ett nytt resultat med de värden som finns

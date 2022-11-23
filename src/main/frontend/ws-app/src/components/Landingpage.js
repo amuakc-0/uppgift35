@@ -167,9 +167,9 @@ const columns: GridColDef[] = [
     const processRowUpdate = (newRow: any) => {
         const updatedRow = { ...newRow, isNew: false };
         //handle send data to api
-        console.log(newRow);
+        console.log(JSON.stringify(newRow));
         //pushes updated row into array of all updated rows
-        postResults.push(newRow);
+        postResults.push(JSON.stringify(newRow));
 
         return updatedRow;
     };
