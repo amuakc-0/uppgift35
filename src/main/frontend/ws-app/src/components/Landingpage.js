@@ -172,8 +172,10 @@ const columns: GridColDef[] = [
         return updatedRow;
     };
 
-    function postResults() {
-        //TODO: Lägg till Post/Update som skickar updatedRows till DB onClick?
+    function testButton2() {
+        console.log("fired");
+        const result =  axios
+            .post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]=', updatedRows)
     }
 
 
@@ -256,7 +258,7 @@ Modul i Ladok
 
           </div>
             <div className="button">
-                <button onClick={testButton}>Testa</button>
+                <button onClick={testButton2}>Testa</button>
     </div>
 </div>
         </div>

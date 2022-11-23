@@ -25,15 +25,14 @@ public class LadokController {
 
     //End point for reg_Resultat (used for adding new results)
     @RequestMapping("/reg_Resultat")
-    public List<LadokResult> reg_Resultat(@RequestParam(value = "listOfPnr[]") String[] listOfPnr, @RequestParam(value = "listOfKurskod[]") String[] listOfKurskod,
-                                          @RequestParam(value = "listOfModul[]") String[] listOfModul, @RequestParam(value = "listOfBetyg[]") String[] listOfBetyg,
-                                          @RequestParam(value = "listOfExDatum[]") String[] listOfExDatum, @RequestParam(value = "listOfUtkast[]") String[] listOfUtkast) {
+    public List<String[]> reg_Resultat(@RequestParam(value = "listOfResults[]") String[] listOfResults) {
 
         //List over all results added by method, this is what the method returns
-        List<LadokResult> resultsAdded = new ArrayList<LadokResult>();
+        List<String[]> listOfArrayList = new ArrayList<String[]>();
+        listOfArrayList.add(listOfResults);
 
         //Adding parameters (arrays) to a list of arrays
-            ArrayList<String[]> list = new ArrayList<String[]>();
+            /*ArrayList<String[]> list = new ArrayList<String[]>();
             int numberOfPersons = listOfBetyg.length;
             String pnrAdd[] = listOfPnr; //[820330, 029830]
             String kurskodAdd[] = listOfKurskod;
@@ -54,10 +53,21 @@ public class LadokController {
 
                 LadokResult newResult = ladokServiceImplementation.reg_Result(listOfPnr[i], listOfKurskod[i], listOfModul[i], betygAdd[i], examinationsDatum,statusAdd[i]);
 
+            }*/
+
+        System.out.println(listOfArrayList.get(0));
+        for (int i = 0; i < listOfArrayList.size(); i++)
+        {
+            System.out.println("test1");
+            System.out.println(listOfArrayList.get(i).length);
+            for (int j = 0; j < listOfArrayList.get(i).length; j++)
+            {
+                System.out.println("test2");
+                System.out.println(listOfArrayList);
             }
+        }
 
-
-        return null;
+        return listOfArrayList;
     }
 
     //End point for requesting all results based on course code
@@ -66,4 +76,6 @@ public class LadokController {
         List<LadokResult> listForCourse = ladokRepository.getResultsCourse(courseCode);
         return listForCourse;
     }
+
+    //End-point for reg_Result
 }
