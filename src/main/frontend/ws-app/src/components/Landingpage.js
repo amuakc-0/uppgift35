@@ -64,7 +64,7 @@ const columns: GridColDef[] = [
 
     const [isLoaded,setIsLoaded] = useState(false);
     const [rowData, setRowData] = useState([]);
-    const updatedRows = [];
+    const postResults = [];
 
 
 
@@ -166,16 +166,18 @@ const columns: GridColDef[] = [
 //FOR EDITING ROWS AND UPDATING DB WITH EDITS
     const processRowUpdate = (newRow: any) => {
         const updatedRow = { ...newRow, isNew: false };
-        console.log(updatedRow);
-        updatedRows.push(updatedRow);
-        console.log(updatedRows)
+        //handle send data to api
+        console.log(newRow);
+        //pushes updated row into array of all updated rows
+        postResults.push(newRow);
+
         return updatedRow;
     };
 
+    //Post array of updated rows to DB on button click
     function testButton2() {
-        console.log("fired");
-        const result =  axios
-            .post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]=', updatedRows)
+        console.log(postResults);
+        axios.post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]='+postResults);
     }
 
 
