@@ -177,7 +177,9 @@ const columns: GridColDef[] = [
     const handleRowEditCommit = (cellData) => {
         console.log("fired");
         const { id, field, value } = cellData;
-        console.log(cellData);
+        console.log(cellData.row);
+        //console.log(JSON.stringify(cellData));
+        postResults.push(cellData);
     }
 
     //Post array of updated rows to DB on button click
