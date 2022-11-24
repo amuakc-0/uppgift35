@@ -18,5 +18,5 @@ public interface LadokService {
     * för respektive student
     *e */
 
-    public LadokResult reg_Result(String pnr, String kurskod, String modul, String betyg, LocalDate examinationsDatum, String status);
+    public LadokResult reg_Result(String pnr, String kurskod, String modul, String betyg, String examinationsDatum, String status);
 }

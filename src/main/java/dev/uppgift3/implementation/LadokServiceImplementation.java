@@ -16,7 +16,7 @@ public class LadokServiceImplementation implements LadokService {
     private LadokRepository ladokRepository;
 
     @Override
-    public LadokResult reg_Result(String pnr, String kurskod, String modul, String betyg, LocalDate examinationsDation, String status) {
+    public LadokResult reg_Result(String pnr, String kurskod, String modul, String betyg, String examinationsDatum, String status) {
 
         //Creating a new entity with posted parameters
 
@@ -24,7 +24,7 @@ public class LadokServiceImplementation implements LadokService {
         newResult.setPnr(pnr);
         newResult.setKurskod(kurskod);
         newResult.setModul(modul);
-        newResult.setDatum(examinationsDation);
+        newResult.setDatum(examinationsDatum);
         newResult.setBetyg(betyg);
         newResult.setStatus(status);
 

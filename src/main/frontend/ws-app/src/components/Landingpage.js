@@ -19,6 +19,7 @@ const columns: GridColDef[] = [
       field: 'ladokid',
       headerName: 'Ladok ID',
       width: 90,
+      editable: true,
   },
   {
     field: 'betyg',
@@ -164,7 +165,7 @@ const columns: GridColDef[] = [
     }
 
 //FOR EDITING ROWS AND UPDATING DB WITH EDITS
-    const processRowUpdate = (newRow: any) => {
+   /* const processRowUpdate = (newRow: any) => {
         const updatedRow = { ...newRow, isNew: false };
         //handle send data to api
         console.log(JSON.stringify(newRow));
@@ -172,7 +173,12 @@ const columns: GridColDef[] = [
         postResults.push(JSON.stringify(newRow));
 
         return updatedRow;
-    };
+    };*/
+    const handleRowEditCommit = (cellData) => {
+        console.log("fired");
+        const { id, field, value } = cellData;
+        console.log(cellData);
+    }
 
     //Post array of updated rows to DB on button click
     function testButton2() {
@@ -250,7 +256,8 @@ Modul i Ladok
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{ newEditingApi: true }}
-                    processRowUpdate={processRowUpdate}
+                    onRowEditStop={handleRowEditCommit}
+                    editMode="row"
                   />
                 </Box>
 

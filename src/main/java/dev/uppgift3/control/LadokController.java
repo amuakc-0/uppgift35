@@ -27,16 +27,29 @@ public class LadokController {
     @RequestMapping("/reg_Resultat")
     public List<String[]> reg_Resultat(@RequestParam(value = "listOfResults[]") String[] listOfResults) {
 
+            //{"ladokid":1,"pnr":"1987-03-20","kurskod":"D0032N","modul":"1002","betyg":"Ge","status":"utkast","datum":"2022-01-22"}
+            List<String> values = new ArrayList<String>();
 
+            for(int i = 0; i < listOfResults.length; i++) {
+                String s = listOfResults[i];
+                String result = s.replaceAll("\"", "");
+                String[] sList = result.split("[:}]");
+                System.out.println(sList[1]);
+                values.add(sList[1]);
 
-
-
-        for (int i = 0; i < listOfResults.length; i++) {
-            List<String> elephantList = Arrays.asList(listOfResults[i].split(":"));
-            System.out.println(elephantList.get(1));
-            //TODO: splitta igen för att få värdena på varsin plats i en array för att kunna skicka till metoden för att skapa ett nytt resultat
-            //TODO: alltså... LadokResult newResult = ladokServiceImplementation.reg_Result(array[0], array[1] osv...)
             }
+
+            //Adding new result
+        String pnr = values.get(1);
+        String kurskod = values.get(2);
+        String modul = values.get(3);
+        String examinationsDatum = values.get(4);
+        String betyg = values.get(5);
+        String status = values.get(6);
+        ladokServiceImplementation.reg_Result(pnr, kurskod, modul, examinationsDatum, betyg, status);
+            //TODO: splitta igen för att få värdena på varsin plats i en array för att kunna skicka till metoden för att skapa ett nytt resultat
+            //TODO: alltså... LadokResult newResult = ladokServiceImplementation.reg_Result(array[0], [1] osv...)
+
 
 
 

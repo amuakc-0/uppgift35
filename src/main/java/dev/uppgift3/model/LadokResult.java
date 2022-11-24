@@ -21,12 +21,12 @@ public class LadokResult {
     private String pnr;
     private String kurskod;
     private String modul;
-    private LocalDate examinationsDatum;
+    private String examinationsDatum;
     private String betyg;
     private String status;
 
     //Constructor
-    public LadokResult(String pnr, String kurskod, String modul, LocalDate examinationsDatum, String betyg, String status) {
+    public LadokResult(String pnr, String kurskod, String modul, String examinationsDatum, String betyg, String status) {
         this.pnr = pnr;
         this.kurskod = kurskod;
         this.modul = modul;
@@ -74,11 +74,11 @@ public class LadokResult {
         this.modul = modul;
     }
 
-    public LocalDate getDatum() {
+    public String getDatum() {
         return examinationsDatum;
     }
 
-    public void setDatum(LocalDate datum) {
+    public void setDatum(String datum) {
         this.examinationsDatum = datum;
     }
 
