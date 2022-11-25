@@ -19,8 +19,9 @@ const columns: GridColDef[] = [
       field: 'ladokid',
       headerName: 'Ladok ID',
       width: 90,
-      editable: true,
+      editable: false,
   },
+
   {
     field: 'betyg',
     headerName: 'Betyg',
@@ -50,7 +51,7 @@ const columns: GridColDef[] = [
         field: 'pnr',
         headerName: 'Personnummer',
         width: 140,
-        editable: true,
+        editable: false,
 
     },
     {
@@ -81,8 +82,25 @@ const columns: GridColDef[] = [
 // Ladokmodul
     const [ladokModule, setLadokModule] = useState();
 
-  //  const [course, setCourse] = useState([]);
-
+//
+    const useFakeMutation = () => {
+        return React.useCallback(
+            (resultat) =>
+                new Promise((resolve, reject) =>
+                    setTimeout(() => {
+                        //ändra if-sats för att ge något riktigt fel
+                        if (resultat.name?.trim() === '') {
+                            reject(new Error("Error while saving user: name can't be empty."));
+                        } else {
+                            resolve(resultat);
+                        }
+                    }, 200),
+                ),
+            [],
+        );
+    };
+//
+    const mutateRow = useFakeMutation();
 
 
 /* FUNCTIONS TRIGGERED ON SELECTION OF DROP-DOWN MENUES */
@@ -175,11 +193,22 @@ const columns: GridColDef[] = [
         return updatedRow;
     };*/
     const handleRowEditCommit = (cellData) => {
-        console.log("fired");
+        console.log("fire handleRowEditCommit");
         const { id, field, value } = cellData;
         console.log(cellData.row);
+        postResults.push(JSON.stringify(rowData));
+        console.log(postResults);
         //console.log(JSON.stringify(cellData));
-        postResults.push(cellData);
+    }
+
+    const handleSubmit = (cellData) => {
+        console.log("fire handleSubmit");
+        const { id, field, value } = cellData;
+        console.log("cellData: " + cellData);
+        console.log("cellData.row: " + cellData.row);
+        //console.log(JSON.stringify(cellData));
+        postResults.push(rowData);
+        console.log(postResults);
     }
 
     //Post array of updated rows to DB on button click
@@ -187,6 +216,22 @@ const columns: GridColDef[] = [
         console.log(postResults);
         axios.post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]='+postResults);
     }
+
+    const processRowUpdate = React.useCallback(
+        async (newRow) => {
+            // Make the HTTP request to save in the backend
+            const response = await mutateRow(newRow);
+            console.log(response);
+            postResults.push(JSON.stringify(response));
+            console.log(postResults);
+            await axios.post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]='+postResults);
+            return response;
+        },
+        [mutateRow],
+    );
+
+    const handleProcessRowUpdateError = React.useCallback((error) => {
+    }, []);
 
 
   return (
@@ -257,8 +302,9 @@ Modul i Ladok
                     rowsPerPageOptions={[5]}
                     checkboxSelection
                     disableSelectionOnClick
+                    processRowUpdate={processRowUpdate}
+                    onProcessRowUpdateError={handleProcessRowUpdateError}
                     experimentalFeatures={{ newEditingApi: true }}
-                    onRowEditStop={handleRowEditCommit}
                     editMode="row"
                   />
                 </Box>
@@ -269,7 +315,7 @@ Modul i Ladok
 
           </div>
             <div className="button">
-                <button onClick={testButton2}>Testa</button>
+                <button onClick={handleSubmit}>Testa</button>
     </div>
 </div>
         </div>

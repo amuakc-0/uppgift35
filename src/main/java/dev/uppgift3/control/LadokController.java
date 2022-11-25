@@ -43,9 +43,9 @@ public class LadokController {
         String pnr = values.get(1);
         String kurskod = values.get(2);
         String modul = values.get(3);
-        String examinationsDatum = values.get(4);
-        String betyg = values.get(5);
-        String status = values.get(6);
+        String betyg = values.get(6); //6
+        String status = values.get(5);
+        String examinationsDatum = values.get(4); //4
         ladokServiceImplementation.reg_Result(pnr, kurskod, modul, examinationsDatum, betyg, status);
             //TODO: splitta igen för att få värdena på varsin plats i en array för att kunna skicka till metoden för att skapa ett nytt resultat
             //TODO: alltså... LadokResult newResult = ladokServiceImplementation.reg_Result(array[0], [1] osv...)
