@@ -66,7 +66,7 @@ const columns: GridColDef[] = [
 
     const [isLoaded,setIsLoaded] = useState(false);
     const [rowData, setRowData] = useState([]);
-    const postResults = [];
+    const [postResults, setPostResult] = useState([]);
 
 
 
@@ -222,9 +222,9 @@ const columns: GridColDef[] = [
             // Make the HTTP request to save in the backend
             const response = await mutateRow(newRow);
             console.log(response);
-            postResults.push(JSON.stringify(response));
-            console.log(postResults);
-            await axios.post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]='+postResults);
+            setPostResult(JSON.stringify(response));
+           // console.log(postResults);
+            ///await axios.post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]='+postResults);
             return response;
         },
         [mutateRow],
@@ -315,7 +315,7 @@ Modul i Ladok
 
           </div>
             <div className="button">
-                <button onClick={handleSubmit}>Testa</button>
+                <button onClick={testButton2}>Testa</button>
     </div>
 </div>
         </div>
