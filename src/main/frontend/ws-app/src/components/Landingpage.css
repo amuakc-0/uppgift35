@@ -55,3 +55,11 @@
   width: 40%;
   padding: 20px;
 }
+
+
+.button {
+    justify-items: center;
+    justify-content: center;
+    width: 40%;
+    padding: 20px;
+}

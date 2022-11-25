@@ -56,7 +56,8 @@ const columns: GridColDef[] = [
     },
     {
         field: 'status',
-        headerName: 'Status',
+        headerName: 'Skickad',
+        type: 'boolean',
         width: 110,
         editable: true,
 
@@ -151,36 +152,52 @@ const columns: GridColDef[] = [
                   console.log(response.data);
                   setRowData(response.data);
               });
-
-
       }
 
 
 /* ARRAYS OF OPTIONS */
 
 //Kurskod options
-    const [optionList1, setOptionList1] = useState([
-
-    ]); //{ value: "D0032N", label: "D0032N" }, {value: "DK3003", label: "DK3003"}
+    const [optionList1, setOptionList1] = useState([]);
 
 // Canvas options
-    const [optionList2, setOptionList2] = useState([{ value: "D0032N", label: "D0032N" }]);
+    const [optionList2, setOptionList2] = useState([]);
 
 // Ladok options
-    const [optionList3, setOptionList3] = useState([{ value: "D0032N", label: "D0032N" }]);
+    const [optionList3, setOptionList3] = useState([]);
 
-//Test
-    function testButton() {
+
+/* DYNAMISK INLÄSNING AV RESPEKTIVE MENYVAL FRÅN DB */
+
+
+    function courseMenu() {
         const response = axios.get('http://localhost:8080/epok/find')
         response.then((response) => {
             setIsLoaded(true);
             console.log(response.data);
             setOptionList1(response.data);
             console.log(response.data);
-        });
+        });}
 
 
-    }
+    function canvasModuleMenu() {
+        const response = axios.get('http://localhost:8080/epok/find')
+        response.then((response) => {
+            setIsLoaded(true);
+            console.log(response.data);
+            setOptionList2(response.data);
+            console.log(response.data);
+        });}
+
+
+    function ladokMenu() {
+        const response = axios.get('http://localhost:8080/ladok/find_Resultat?')
+        response.then((response) => {
+            setIsLoaded(true);
+            console.log(response.data);
+            setOptionList3(response.data);
+            console.log(response.data);
+        });}
 
 //FOR EDITING ROWS AND UPDATING DB WITH EDITS
    /* const processRowUpdate = (newRow: any) => {
@@ -192,6 +209,7 @@ const columns: GridColDef[] = [
 
         return updatedRow;
     };*/
+
     const handleRowEditCommit = (cellData) => {
         console.log("fire handleRowEditCommit");
         const { id, field, value } = cellData;
@@ -212,7 +230,7 @@ const columns: GridColDef[] = [
     }
 
     //Post array of updated rows to DB on button click
-    function testButton2() {
+    function sendButton() {
         console.log(postResults);
         axios.post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]='+postResults);
     }
@@ -247,7 +265,7 @@ const columns: GridColDef[] = [
                       placeholder="Välj kurskod i listan"
                       value={courseCode}
                       onChange={handleSelect}
-                      onMenuOpen={testButton}
+                      onMenuOpen={courseMenu}
                       isSearchable={true}
                   />
 
@@ -262,6 +280,7 @@ Modul i Canvas
                       placeholder="Välj Canvasmodul i listan"
                       value={canvasModule}
                       onChange={handleSelect}
+                      onMenuOpen={canvasModuleMenu}
                       isSearchable={true}
                   />
 </div>
@@ -274,6 +293,7 @@ Modul i Ladok
                       placeholder="Välj Ladokmodul i listan"
                       value={ladokModule}
                       onChange={handleSelect}
+                      onMenuOpen={ladokMenu}
                       isSearchable={true}
                   />
 </div>
@@ -283,8 +303,13 @@ Modul i Ladok
  </div>
 
       <div className="container">
-
       <div className="home">
+
+      <div className="button">
+         <button onClick={sendButton}>Skicka</button>
+          </div>
+
+
         <div className="row align-items-center my-5">
           <div className="col-lg-7">
 
@@ -314,9 +339,7 @@ Modul i Ladok
 
 
           </div>
-            <div className="button">
-                <button onClick={testButton2}>Testa</button>
-    </div>
+
 </div>
         </div>
         </div>
