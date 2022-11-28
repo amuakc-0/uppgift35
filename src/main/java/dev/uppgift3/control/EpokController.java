@@ -1,7 +1,11 @@
 package dev.uppgift3.control;
 
+import dev.uppgift3.implementation.EpokModulServiceImplementation;
 import dev.uppgift3.implementation.EpokServiceImplementation;
 import dev.uppgift3.model.EpokKurs;
+import dev.uppgift3.model.EpokModul;
+import dev.uppgift3.model.LadokResult;
+import dev.uppgift3.repository.EpokModulRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +19,21 @@ public class EpokController {
 
     @Autowired
     private EpokServiceImplementation epokServiceImplementation;
+    @Autowired
+    private EpokModulServiceImplementation epokModulServiceImplementation;
 
 
     @RequestMapping(value="/find", method = RequestMethod.GET)
     public @ResponseBody List<EpokKurs> get_Kurser()  {
         List<EpokKurs> list = epokServiceImplementation.get_Kurser();
         return list;
+    }
+
+    //Endpoint for get_Modules
+    @RequestMapping(value="/find_Modules", method = RequestMethod.GET)
+    public @ResponseBody List<EpokModul> get_Modules(@RequestParam("courseCode") String courseCode) {
+        List<EpokModul> modulesForCourse = epokModulServiceImplementation.find_Modules(courseCode);
+        return modulesForCourse;
     }
 
     /* get_Kurser

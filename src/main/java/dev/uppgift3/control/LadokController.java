@@ -1,8 +1,13 @@
 package dev.uppgift3.control;
 
+import dev.uppgift3.implementation.LadokModulServiceImplementation;
 import dev.uppgift3.implementation.LadokServiceImplementation;
+import dev.uppgift3.model.EpokModul;
+import dev.uppgift3.model.LadokModul;
 import dev.uppgift3.model.LadokResult;
+import dev.uppgift3.repository.LadokModulRepository;
 import dev.uppgift3.repository.LadokRepository;
+import dev.uppgift3.service.LadokModulService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
@@ -18,6 +23,10 @@ public class LadokController {
     private LadokServiceImplementation ladokServiceImplementation;
     @Autowired
     private LadokRepository ladokRepository;
+    @Autowired
+    private LadokModulRepository ladokModulRepository;
+    @Autowired
+    private LadokModulServiceImplementation ladokModulServiceImplementation;
 
     //TODO: Metod för att uppdatera resultat via frontend behövs. Alltså, när man klickar på ett fält i datagriden -> ändrar -> klickar på "överför",
     //      så ska den metoden kallas för att updatera resultat i databasen
@@ -70,6 +79,12 @@ public class LadokController {
         public @ResponseBody List<LadokResult> getResultsCourse(@RequestParam("courseCode") String courseCode) {
         List<LadokResult> listForCourse = ladokRepository.getResultsCourse(courseCode);
         return listForCourse;
+    }
+
+    @RequestMapping(value="/find_Modules", method = RequestMethod.GET)
+    public @ResponseBody List<LadokModul> get_Modules(@RequestParam("courseCode") String courseCode) {
+        List<LadokModul> modulesForCourse = ladokModulServiceImplementation.find_Modules(courseCode);
+        return modulesForCourse;
     }
 
 }

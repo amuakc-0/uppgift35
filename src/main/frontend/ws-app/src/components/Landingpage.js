@@ -12,6 +12,7 @@ import Select from "react-select";
 function Landingpage() {
 
 
+
 /* ATTRIBUTES OF DATAGRID */
 
 const columns: GridColDef[] = [
@@ -56,8 +57,7 @@ const columns: GridColDef[] = [
     },
     {
         field: 'status',
-        headerName: 'Skickad',
-        type: 'boolean',
+        headerName: 'Status',
         width: 110,
         editable: true,
 
@@ -76,6 +76,7 @@ const columns: GridColDef[] = [
 
 // Kurskod
     const [courseCode, setCourseCode] = useState();
+    const [course, setCourse] = useState("Välj kurskod först");
 
 // Modul i Canvas
     const [canvasModule, setCanvasModule] = useState();
@@ -133,25 +134,20 @@ const columns: GridColDef[] = [
               }); }*/
 
 
-// Modul i Canvas
-      function handleSelect(courseCode) {
-              console.log(courseCode.value);
-              const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+courseCode.value)
-              response.then((response) => {
-                  setIsLoaded(true);
-                  console.log(response.data);
-                  setRowData(response.data);
-              }); }
 
-// Modul i Ladok
-      function handleSelect(courseCode) {
+
+// Körs när man startar eventet att välja kurs = sätter courseCode = courseCode.value
+      function handleSelectCourseCode(courseCode) {
               console.log(courseCode.value);
-              const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+courseCode.value)
+            const thisCourse = courseCode.value;
+            console.log(thisCourse);
+             setCourse(thisCourse);
+              /*const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+courseCode.value)
               response.then((response) => {
                   setIsLoaded(true);
                   console.log(response.data);
                   setRowData(response.data);
-              });
+              });*/
       }
 
 
@@ -170,6 +166,7 @@ const columns: GridColDef[] = [
 /* DYNAMISK INLÄSNING AV RESPEKTIVE MENYVAL FRÅN DB */
 
 
+    //Inläsning av kurskoder
     function courseMenu() {
         const response = axios.get('http://localhost:8080/epok/find')
         response.then((response) => {
@@ -179,25 +176,35 @@ const columns: GridColDef[] = [
             console.log(response.data);
         });}
 
+    //Inläsning av moduler
 
     function canvasModuleMenu() {
-        const response = axios.get('http://localhost:8080/epok/find')
+        console.log(course.value);
+        if (course != "Välj kurskod") {
+        const response = axios.get('http://localhost:8080/epok/find_Modules?courseCode='+course)
         response.then((response) => {
             setIsLoaded(true);
             console.log(response.data);
             setOptionList2(response.data);
             console.log(response.data);
-        });}
+        });} else {
 
+        }
+
+    }
 
     function ladokMenu() {
-        const response = axios.get('http://localhost:8080/ladok/find_Resultat?')
-        response.then((response) => {
-            setIsLoaded(true);
-            console.log(response.data);
-            setOptionList3(response.data);
-            console.log(response.data);
-        });}
+        console.log(course.value);
+        if (course != "Välj kurskod") {
+            const response = axios.get('http://localhost:8080/ladok/find_Modules?courseCode='+course)
+            response.then((response) => {
+                setIsLoaded(true);
+                console.log(response.data);
+                setOptionList3(response.data);
+                console.log(response.data);
+            });} else {
+
+        }}
 
 //FOR EDITING ROWS AND UPDATING DB WITH EDITS
    /* const processRowUpdate = (newRow: any) => {
@@ -224,11 +231,22 @@ const columns: GridColDef[] = [
         const { id, field, value } = cellData;
         console.log("cellData: " + cellData);
         console.log("cellData.row: " + cellData.row);
-        //console.log(JSON.stringify(cellData));
+        console.log(JSON.stringify(cellData));
         postResults.push(rowData);
         console.log(postResults);
     }
 
+    //Loads data grid with data
+
+    function showResult() {
+        const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+course)
+        response.then((response) => {
+            setIsLoaded(true);
+            console.log(response.data);
+            setRowData(response.data);
+        });
+
+    }
     //Post array of updated rows to DB on button click
     function sendButton() {
         console.log(postResults);
@@ -264,7 +282,7 @@ const columns: GridColDef[] = [
             options={optionList1}
                       placeholder="Välj kurskod i listan"
                       value={courseCode}
-                      onChange={handleSelect}
+                      onChange={handleSelectCourseCode}
                       onMenuOpen={courseMenu}
                       isSearchable={true}
                   />
@@ -279,7 +297,6 @@ Modul i Canvas
             options={optionList2}
                       placeholder="Välj Canvasmodul i listan"
                       value={canvasModule}
-                      onChange={handleSelect}
                       onMenuOpen={canvasModuleMenu}
                       isSearchable={true}
                   />
@@ -292,7 +309,6 @@ Modul i Ladok
             options={optionList3}
                       placeholder="Välj Ladokmodul i listan"
                       value={ladokModule}
-                      onChange={handleSelect}
                       onMenuOpen={ladokMenu}
                       isSearchable={true}
                   />
@@ -305,9 +321,13 @@ Modul i Ladok
       <div className="container">
       <div className="home">
 
-      <div className="button">
-         <button onClick={sendButton}>Skicka</button>
-          </div>
+      <div className="resultButton">
+        <button onClick={showResult}>Visa resultat</button>
+      </div>
+
+      <div className="sendButton">
+         <button onClick={handleSubmit}>Överför resultat till Ladok</button>
+      </div>
 
 
         <div className="row align-items-center my-5">
@@ -321,7 +341,7 @@ Modul i Ladok
                <Box sx={{ height: 400, width: '500%' }}>
                   <DataGrid
                     rows={rowData}
-                    getRowId={(row: any) =>  row.ladokid + row.pnr}
+                    getRowId={(row: any) =>  row.pnr}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
