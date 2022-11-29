@@ -20,6 +20,7 @@ public class EpokModulServiceImplementation implements EpokModulService {
 
     @Override
     public List<EpokModul> find_Modules(String courseCode) {
-       return epokModulRepository.findByCourseCode(courseCode);
+
+        return epokModulRepository.findByCourseCode(courseCode);
     }
 }

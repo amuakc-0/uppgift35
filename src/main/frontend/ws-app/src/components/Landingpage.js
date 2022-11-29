@@ -17,11 +17,25 @@ function Landingpage() {
 
 const columns: GridColDef[] = [
   {
-      field: 'ladokid',
-      headerName: 'Ladok ID',
+      field: 'studentAnvandare',
+      headerName: 'Student ID',
       width: 90,
       editable: false,
   },
+    {
+        field: 'pnr',
+        headerName: 'Personnummer',
+        width: 140,
+        editable: false,
+
+    },
+
+    {
+        field: 'studentNamn',
+        headerName: 'Namn',
+        width: 90,
+        editable: false,
+    },
 
   {
     field: 'betyg',
@@ -39,22 +53,16 @@ const columns: GridColDef[] = [
     field: 'kurskod',
     headerName: 'Kurskod',
     width: 110,
-    editable: true,
+    editable: false,
   },
   {
     field: 'modul',
     headerName: 'Modul',
     width: 110,
-    editable: true,
+    editable: false,
 
   },
-    {
-        field: 'pnr',
-        headerName: 'Personnummer',
-        width: 140,
-        editable: false,
 
-    },
     {
         field: 'status',
         headerName: 'Status',
@@ -338,7 +346,7 @@ Modul i Ladok
 
           <div className="description">
 
-               <Box sx={{ height: 400, width: '500%' }}>
+               <Box sx={{ height: 400, width: '550%' }}>
                   <DataGrid
                     rows={rowData}
                     getRowId={(row: any) =>  row.pnr}
