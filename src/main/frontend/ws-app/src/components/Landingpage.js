@@ -247,7 +247,7 @@ const columns: GridColDef[] = [
     //Loads data grid with data
 
     function showResult() {
-        const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+course)
+        const response = axios.get('http://localhost:8080/canvas/find?kurskod='+course)
         response.then((response) => {
             setIsLoaded(true);
             console.log(response.data);
@@ -349,7 +349,7 @@ Modul i Ladok
                <Box sx={{ height: 400, width: '550%' }}>
                   <DataGrid
                     rows={rowData}
-                    getRowId={(row: any) =>  row.pnr}
+                    getRowId={(row: any) =>  row.studentAnvandare}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
