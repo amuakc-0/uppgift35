@@ -74,6 +74,7 @@ const columns: GridColDef[] = [
 
 
     const [isLoaded,setIsLoaded] = useState(false);
+    const [student, setStudent] = useState([]);
     const [rowData, setRowData] = useState([]);
     const [postResults, setPostResult] = useState([]);
 
@@ -255,6 +256,79 @@ const columns: GridColDef[] = [
         });
 
     }
+
+    /*********************/
+    function rows() {
+        let one = "http://localhost:8080/canvas/find?kurskod="+course;
+        var students = [];
+
+        const requestOne = axios.get(one)
+        requestOne.then((response) => {
+            setIsLoaded(true);
+            students = response.data;
+
+             const studentList = students.map(async student => {
+                 var pnr = await axios.get("http://localhost:8080/its/find?studentAnvandare="+student.studentAnvandare).then(response => response.data);;
+                 student.pnr = pnr;
+                 console.log(student);
+             })
+
+
+            setRowData(students)
+        })
+
+        };
+
+            //const studentId = thisStudent.studentAnvandare;
+            //console.log(studentId);
+
+           // let two = "http://localhost:8080/its/find?studentAnvandare=amuakc-0";
+            //const requestTwo = axios.get(two);
+            //requestTwo.then((response) => {
+              //  setIsLoaded(true);
+                //thisPnr = response.data;
+                //const pnr = thisPnr.pnr;
+                //console.log(pnr);
+
+
+           // axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
+
+             //   const responseOne = responses[0].data
+               // const responseTwo = responses[1].data
+
+                //const merge = (...arrays) => {
+                  //      const merged = {};
+
+                    //    arrays.forEach(data =>
+                      //      data.forEach(o => Object.assign(merged[o.name] ??= {}, o))
+                        //);
+
+                       // return Object.values(merged);
+                  //  },
+                  //  array1 = responseOne,
+        //  array2 = responseTwo,
+        //  result = merge(array1, array2);
+
+        //  setRowData(result)
+
+
+        //  }))
+
+
+
+
+
+
+
+
+
+
+
+
+// Merge arrays
+
+
+     /********************/
     //Post array of updated rows to DB on button click
     function sendButton() {
         console.log(postResults);
@@ -330,7 +404,7 @@ Modul i Ladok
       <div className="home">
 
       <div className="resultButton">
-        <button onClick={showResult}>Visa resultat</button>
+        <button onClick={rows}>Visa resultat</button>
       </div>
 
       <div className="sendButton">
@@ -349,7 +423,7 @@ Modul i Ladok
                <Box sx={{ height: 400, width: '550%' }}>
                   <DataGrid
                     rows={rowData}
-                    getRowId={(row: any) =>  row.studentAnvandare}
+                    getRowId={(row: any) =>  row.studentAnvandare + row.pnr}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}

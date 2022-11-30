@@ -6,12 +6,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+
 public class CanvasStudent {
     @Id
     private String studentAnvandare; //PK
     private String studentNamn;
 
     private String kurs; //TODO: change to container of courses since one student can have several courses
+
 
     public CanvasStudent(String studentAnvandare, String studentNamn, String kurs) {
         this.studentAnvandare = studentAnvandare;

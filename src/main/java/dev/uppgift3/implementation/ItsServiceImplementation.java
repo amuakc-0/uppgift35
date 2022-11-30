@@ -6,6 +6,8 @@ import dev.uppgift3.service.ItsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItsServiceImplementation implements ItsService {
 
@@ -14,7 +16,7 @@ public class ItsServiceImplementation implements ItsService {
 
     //Method for seraching for a pnr in DB based on student-id (studentAnvandare)
     @Override
-    public ItsPnr get_Persnummer(String studentAnvandare) {
+    public String get_Persnummer(String studentAnvandare) {
         return itsRepository.get_Persnummer(studentAnvandare);
     }
 }
