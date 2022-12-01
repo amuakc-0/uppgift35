@@ -53,13 +53,13 @@ const columns: GridColDef[] = [
     field: 'kurskod',
     headerName: 'Kurskod',
     width: 110,
-    editable: false,
+    editable: true,
   },
   {
     field: 'modul',
     headerName: 'Modul',
     width: 110,
-    editable: false,
+    editable: true,
 
   },
 
@@ -76,7 +76,9 @@ const columns: GridColDef[] = [
     const [isLoaded,setIsLoaded] = useState(false);
     const [student, setStudent] = useState([]);
     const [rowData, setRowData] = useState([]);
+    const  thisResult = [];
     const [postResults, setPostResult] = useState([]);
+
 
 
 
@@ -116,31 +118,6 @@ const columns: GridColDef[] = [
 
 /* FUNCTIONS TRIGGERED ON SELECTION OF DROP-DOWN MENUES */
 
-// Kurskod
-     // function handleSelect(courseCode) {
-
-/*  Denna funkar att ju köra utanför funktionen, laddar in det som finns i lokala mysql..
-    Inte fått till att den ska ladda in resultat först när man gjort ett val i listan
-
-          const [isLoaded,setIsLoaded] = useState(false);
-          const [rowData,setRowData] = useState([]);
-          useEffect(() => {
-              const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode=D0025E')
-              response.then((response) => {
-              setIsLoaded(true);
-              console.log(response.data);
-              setRowData(response.data);
-          });}, []);
-}
-
-
-              console.log(courseCode.value);
-              const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode=D0025E')
-              response.then((response) => {
-                  setIsLoaded(true);
-                  console.log(response.data);
-                  setRowData(response.data);
-              }); }*/
 
 
 
@@ -215,16 +192,7 @@ const columns: GridColDef[] = [
 
         }}
 
-//FOR EDITING ROWS AND UPDATING DB WITH EDITS
-   /* const processRowUpdate = (newRow: any) => {
-        const updatedRow = { ...newRow, isNew: false };
-        //handle send data to api
-        console.log(JSON.stringify(newRow));
-        //pushes updated row into array of all updated rows
-        postResults.push(JSON.stringify(newRow));
 
-        return updatedRow;
-    };*/
 
     const handleRowEditCommit = (cellData) => {
         console.log("fire handleRowEditCommit");
@@ -235,15 +203,6 @@ const columns: GridColDef[] = [
         //console.log(JSON.stringify(cellData));
     }
 
-    const handleSubmit = (cellData) => {
-        console.log("fire handleSubmit");
-        const { id, field, value } = cellData;
-        console.log("cellData: " + cellData);
-        console.log("cellData.row: " + cellData.row);
-        console.log(JSON.stringify(cellData));
-        postResults.push(rowData);
-        console.log(postResults);
-    }
 
     //Loads data grid with data
 
@@ -279,70 +238,26 @@ const columns: GridColDef[] = [
 
         };
 
-            //const studentId = thisStudent.studentAnvandare;
-            //console.log(studentId);
-
-           // let two = "http://localhost:8080/its/find?studentAnvandare=amuakc-0";
-            //const requestTwo = axios.get(two);
-            //requestTwo.then((response) => {
-              //  setIsLoaded(true);
-                //thisPnr = response.data;
-                //const pnr = thisPnr.pnr;
-                //console.log(pnr);
-
-
-           // axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
-
-             //   const responseOne = responses[0].data
-               // const responseTwo = responses[1].data
-
-                //const merge = (...arrays) => {
-                  //      const merged = {};
-
-                    //    arrays.forEach(data =>
-                      //      data.forEach(o => Object.assign(merged[o.name] ??= {}, o))
-                        //);
-
-                       // return Object.values(merged);
-                  //  },
-                  //  array1 = responseOne,
-        //  array2 = responseTwo,
-        //  result = merge(array1, array2);
-
-        //  setRowData(result)
-
-
-        //  }))
-
-
-
-
-
-
-
-
-
-
-
-
-// Merge arrays
 
 
      /********************/
     //Post array of updated rows to DB on button click
     function sendButton() {
         console.log(postResults);
-        axios.post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]='+postResults);
+        axios.post('http://localhost:8080/ladok/reg_Resultat?students='+postResults);
     }
 
     const processRowUpdate = React.useCallback(
         async (newRow) => {
             // Make the HTTP request to save in the backend
+
             const response = await mutateRow(newRow);
             console.log(response);
-            setPostResult(JSON.stringify(response));
-           // console.log(postResults);
-            ///await axios.post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]='+postResults);
+            thisResult.push(response);
+            console.log(thisResult);
+            setPostResult(thisResult);
+
+           // await axios.post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]='+postResults);
             return response;
         },
         [mutateRow],
@@ -408,7 +323,7 @@ Modul i Ladok
       </div>
 
       <div className="sendButton">
-         <button onClick={handleSubmit}>Överför resultat till Ladok</button>
+         <button onClick={sendButton}>Överför resultat till Ladok</button>
       </div>
 
 

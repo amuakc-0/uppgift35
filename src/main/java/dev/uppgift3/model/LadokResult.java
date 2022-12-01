@@ -5,8 +5,6 @@ package dev.uppgift3.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 //Entity class for Ladok webb service. Class defines the object => determines what data to be stored in DB.
 
@@ -18,19 +16,27 @@ public class LadokResult {
     @GeneratedValue int ladokid;  //used instead of pnr since pnr occurs several times
 
     //Variables (not translated for clarity)
+    private String studentAnvandare;
+
+    private String studentNamn;
     private String pnr;
+
+    private String kurs;
     private String kurskod;
     private String modul;
-    private String examinationsDatum;
+    private String datum;
     private String betyg;
     private String status;
 
     //Constructor
-    public LadokResult(String pnr, String kurskod, String modul, String examinationsDatum, String betyg, String status) {
+    public LadokResult(String studentAnvandare, String studentNamn, String pnr, String kurs, String kurskod, String modul, String examinationsDatum, String datum, String betyg, String status) {
+        this.studentAnvandare = studentAnvandare;
+        this.studentNamn = studentNamn;
         this.pnr = pnr;
+        this.kurs = kurs;
         this.kurskod = kurskod;
         this.modul = modul;
-        this.examinationsDatum = examinationsDatum;
+        this.datum = datum;
         this.betyg = betyg;
         this.status = status;
     }
@@ -41,6 +47,15 @@ public class LadokResult {
     }
 
     //Getters and setters
+
+
+    public String getStudentAnvandare() {
+        return studentAnvandare;
+    }
+
+    public void setStudentAnvandare(String studentAnvandare) {
+        this.studentAnvandare = studentAnvandare;
+    }
 
     public int getLadokid() {
         return ladokid;
@@ -74,12 +89,28 @@ public class LadokResult {
         this.modul = modul;
     }
 
+    public String getStudentNamn() {
+        return studentNamn;
+    }
+
+    public void setStudentNamn(String studentNamn) {
+        this.studentNamn = studentNamn;
+    }
+
+    public String getKurs() {
+        return kurs;
+    }
+
+    public void setKurs(String kurs) {
+        this.kurs = kurs;
+    }
+
     public String getDatum() {
-        return examinationsDatum;
+        return datum;
     }
 
     public void setDatum(String datum) {
-        this.examinationsDatum = datum;
+        this.datum = datum;
     }
 
     public String getBetyg() {
