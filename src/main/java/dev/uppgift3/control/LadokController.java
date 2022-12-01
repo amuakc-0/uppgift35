@@ -42,10 +42,25 @@ public class LadokController {
     //End point for reg_Resultat (used for adding new results)
     @PostMapping("/request")
     public Student postController(
-            @RequestBody Student student) {
-            System.out.println(student.getBetyg());
+            @RequestBody List<Student> studentsToAdd) {
+                System.out.println("request" + studentsToAdd.size());
 
-        return student;
+        List<Student> myEmpls = studentsToAdd;
+        for(Student element : myEmpls) {
+           String anv = element.getStudentAnvandare();
+           String studentNamn = element.getStudentNamn();
+           String pnr = element.getPnr();
+           String betyg = element.getKurskod();
+           String datum = element.getModul();
+           String kursKod = element.getDatum();
+           String modul = element.getBetyg();
+           String status = element.getStatus();
+           ladokServiceImplementation.reg_Result(anv, studentNamn, pnr, betyg, datum, kursKod, modul, status);
+        }
+                    //Student studentToAdd = studentsToAdd.get(i);
+
+
+        return null;
     }
    // public List<String[]> reg_Resultat(@RequestParam(value = "listOfResults[]")  String [] listOfResultsArray) throws JsonProcessingException {
 

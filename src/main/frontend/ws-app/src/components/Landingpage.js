@@ -72,12 +72,14 @@ const columns: GridColDef[] = [
     },
 ];
 
+    //Variabler
 
     const [isLoaded,setIsLoaded] = useState(false);
     const [student, setStudent] = useState([]);
     const [rowData, setRowData] = useState([]);
     const  thisResult = [];
     const [postResults, setPostResult] = useState([]);
+    const [ladokModulePrint, setLadokModulePrint] = useState();
 
 
 
@@ -95,7 +97,7 @@ const columns: GridColDef[] = [
 // Ladokmodul
     const [ladokModule, setLadokModule] = useState();
 
-//
+//Funktion för att skriva ut nya rader som ändrats
     const useFakeMutation = () => {
         return React.useCallback(
             (resultat) =>
@@ -128,13 +130,14 @@ const columns: GridColDef[] = [
             const thisCourse = courseCode.value;
             console.log(thisCourse);
              setCourse(thisCourse);
-              /*const response = axios.get('http://localhost:8080/ladok/find_Resultat?courseCode='+courseCode.value)
-              response.then((response) => {
-                  setIsLoaded(true);
-                  console.log(response.data);
-                  setRowData(response.data);
-              });*/
       }
+
+    function handleSelectLadokModule(ladokModule) {
+        console.log(ladokModule.value);
+        const thisCanvasModule = ladokModule.value;
+        console.log(thisCanvasModule);
+        setLadokModulePrint(thisCanvasModule);
+    }
 
 
 /* ARRAYS OF OPTIONS */
@@ -194,29 +197,9 @@ const columns: GridColDef[] = [
 
 
 
-    const handleRowEditCommit = (cellData) => {
-        console.log("fire handleRowEditCommit");
-        const { id, field, value } = cellData;
-        console.log(cellData.row);
-        postResults.push(JSON.stringify(rowData));
-        console.log(postResults);
-        //console.log(JSON.stringify(cellData));
-    }
-
 
     //Loads data grid with data
 
-    function showResult() {
-        const response = axios.get('http://localhost:8080/canvas/find?kurskod='+course)
-        response.then((response) => {
-            setIsLoaded(true);
-            console.log(response.data);
-            setRowData(response.data);
-        });
-
-    }
-
-    /*********************/
     function rows() {
         let one = "http://localhost:8080/canvas/find?kurskod="+course;
         var students = [];
@@ -229,6 +212,8 @@ const columns: GridColDef[] = [
              const studentList = students.map(async student => {
                  var pnr = await axios.get("http://localhost:8080/its/find?studentAnvandare="+student.studentAnvandare).then(response => response.data);;
                  student.pnr = pnr;
+                 student.modul = ladokModulePrint;
+                 student.kurskod = course;
                  console.log(student);
              })
 
@@ -239,14 +224,19 @@ const columns: GridColDef[] = [
         };
 
 
-
-     /********************/
     //Post array of updated rows to DB on button click
     function sendButton() {
         console.log(postResults);
-        axios.post('http://localhost:8080/ladok/reg_Resultat?students='+postResults);
+        if (postResults.length > 0) {
+            axios.post('http://localhost:8080/ladok/request', postResults);
+        } else {
+            alert("Inga resultat har matats in");
+        }
+
+
     }
 
+    //Function for row update, new row puhsed to array postResult
     const processRowUpdate = React.useCallback(
         async (newRow) => {
             // Make the HTTP request to save in the backend
@@ -256,8 +246,6 @@ const columns: GridColDef[] = [
             thisResult.push(response);
             console.log(thisResult);
             setPostResult(thisResult);
-
-           // await axios.post('http://localhost:8080/ladok/reg_Resultat?listOfResults[]='+postResults);
             return response;
         },
         [mutateRow],
@@ -296,6 +284,7 @@ Modul i Canvas
                       value={canvasModule}
                       onMenuOpen={canvasModuleMenu}
                       isSearchable={true}
+
                   />
 </div>
 
@@ -308,6 +297,7 @@ Modul i Ladok
                       value={ladokModule}
                       onMenuOpen={ladokMenu}
                       isSearchable={true}
+                      onChange={handleSelectLadokModule}
                   />
 </div>
 

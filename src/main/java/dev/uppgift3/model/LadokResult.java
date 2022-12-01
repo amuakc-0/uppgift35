@@ -21,7 +21,6 @@ public class LadokResult {
     private String studentNamn;
     private String pnr;
 
-    private String kurs;
     private String kurskod;
     private String modul;
     private String datum;
@@ -29,11 +28,11 @@ public class LadokResult {
     private String status;
 
     //Constructor
-    public LadokResult(String studentAnvandare, String studentNamn, String pnr, String kurs, String kurskod, String modul, String examinationsDatum, String datum, String betyg, String status) {
+    public LadokResult(String studentAnvandare, String studentNamn, String pnr, String kurskod, String modul, String examinationsDatum, String datum, String betyg, String status) {
         this.studentAnvandare = studentAnvandare;
         this.studentNamn = studentNamn;
         this.pnr = pnr;
-        this.kurs = kurs;
+
         this.kurskod = kurskod;
         this.modul = modul;
         this.datum = datum;
@@ -97,13 +96,6 @@ public class LadokResult {
         this.studentNamn = studentNamn;
     }
 
-    public String getKurs() {
-        return kurs;
-    }
-
-    public void setKurs(String kurs) {
-        this.kurs = kurs;
-    }
 
     public String getDatum() {
         return datum;

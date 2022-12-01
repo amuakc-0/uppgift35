@@ -3,7 +3,7 @@ package dev.uppgift3.control;
 public class Student {
     private String studentAnvandare;
     private String studentNamn;
-    private String kurs;
+
     private String pnr;
     private String betyg;
     private String datum;
@@ -11,10 +11,10 @@ public class Student {
     private String modul;
     private String status;
 
-    public Student(String studentAnvandare, String studentNamn, String kurs, String pnr, String betyg, String datum, String kurskod, String modul, String status) {
+    public Student(String studentAnvandare, String studentNamn, String pnr, String betyg, String datum, String kurskod, String modul, String status) {
         this.studentAnvandare = studentAnvandare;
         this.studentNamn = studentNamn;
-        this.kurs = kurs;
+
         this.pnr = pnr;
         this.betyg = betyg;
         this.datum = datum;
@@ -39,13 +39,7 @@ public class Student {
         this.studentNamn = studentNamn;
     }
 
-    public String getKurs() {
-        return kurs;
-    }
 
-    public void setKurs(String kurs) {
-        this.kurs = kurs;
-    }
 
     public String getPnr() {
         return pnr;
